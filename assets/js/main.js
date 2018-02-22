@@ -1,5 +1,11 @@
 $(document).ready(function () {
 
+    var app = angular.module('WikiViewer', []);
+
+    app.controller('WikiController', function () {
+
+    });
+
     var results = document.getElementById("results");
 
 
@@ -25,4 +31,5 @@ $(document).ready(function () {
 
         }
     });
+
 });

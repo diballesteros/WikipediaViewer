@@ -13,24 +13,33 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="assets/stylesheets/main.css" />
 
-
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" ng-app="WikiViewer" ng-controller="WikiController">
         <div class="row">
             <div class="col"></div>
 
             <div class="col-md-6">
                 <div class="random text-center">
-                    <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">Click here for a random article</a>
                 </div>
 
                 <div>
                     <div class="input-group">
                         <input type="text" class="form-control" id="search" placeholder="Search" aria-label="search">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn searchbtn" alt="Search">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </span>
+
+                        <span class="input-group-btn">
+                            <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">
+                                <button type="button" class="btn searchbtn">Random</button>
+                            </a>
+                        </span>
                     </div>
-                    <p class="text-center">Click on Icon to Search</p>
+
                 </div>
 
                 <div class="results">
@@ -43,6 +52,9 @@
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <script src="assets/js/main.js"></script>
 
 </html>
