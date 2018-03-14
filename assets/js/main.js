@@ -1,35 +1,89 @@
-$(document).ready(function () {
+class App extends React.Component {
+    render() {
+        return (
+            <div>
+                <div className="InputGroup">
+                    <Search />
+                    <Random />
+                    
+                </div>
+            </div>
+        );
+    }
+}
 
-    var app = angular.module('WikiViewer', []);
+class Random extends React.Component {
+    render() {
+        return (
+            <Aux>
+                <a href="https://en.wikipedia.org/wiki/Special:Random"
+                    target="_blank">
+                    <button type="button" className="Button">Random</button>
+                </a>
+            </Aux>
+        );
+    }
+}
 
-    app.controller('WikiController', function () {
+class Results extends React.Component {
+    //let urly = "https://en.wikipedia.org/?curid=";
+    render() {
+        return (
+            <article className="Post">
+                <h1>{props.title}</h1>
+            </article>
+        );
+    }
+}
 
-    });
+class Search extends React.Component {
+    state = {
+        wiki: []
+    }
 
-    var results = document.getElementById("results");
+    searchWikiHandler = () => {
+        //let results = document.getElementById("results");
+        let call = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=revisions&list=search&rvprop=content&srsearch="
+            + document.getElementById("search").value + "&srlimit=15&srprop=snippet";
 
+        let html = '';
 
-    $(document).on('keyup', function (e) {
-        if ($("#search").is(":focus") && e.key == "Enter") {
+        axios.get(call).then(response => {
+            console.log(response.data.query.search);
+            this.setState({ wiki: response.data.query.search })
+        });
 
+        // $.getJSON(call, function (json) {
+        //     json.query.search.forEach(function (val) {
+        //         html += "<li>" + val.title + "</li>";
+        //     });
+        //     results.innerHTML = html;
+        // });
 
+    }
 
-            var call = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=revisions&list=search&rvprop=content&srsearch="
-                + document.getElementById("search").value + "&srlimit=15&srprop=snippet";
+    render() {
+        const entries = this.state.wiki.map(entry => {
+            return <Results
+                key={entry.pageid}
+                title={entry.title} />
+        });
 
-            var html = '';
+        return (
+            <Aux>
+                <input type="text" id="search"
+                    className="Search" placeholder="Search Wikipedia"
+                    onKeyPress={event => {
+                        if (event.key === 'Enter') {
+                            this.searchWikiHandler();
+                        }
+                    }}></input>
+                    {entries}
+            </Aux>
+        );
+    }
+}
 
-            var urly = "https://en.wikipedia.org/?curid=";
+const Aux = (props) => props.children;
 
-            $.getJSON(call, function (json) {
-                json.query.search.forEach(function (val) {
-                    html += "<li>" + val.title + "</li>";
-                });
-                results.innerHTML = html;
-            });
-
-
-        }
-    });
-
-});
+ReactDOM.render(<App />, document.getElementById('root'));
