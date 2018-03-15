@@ -5,8 +5,8 @@
 */
 body{
     background-color: #74AFAD;
-    font-weight: bold;
 }
+
 /*
   ========================================
   Input Group
@@ -17,9 +17,7 @@ body{
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
     margin: auto;
-    padding: 10px 0;
 }
 
 /*
@@ -34,14 +32,24 @@ body{
     padding: 10px;
     margin: 5px;
     font-weight: bold;
+    
 }
 
 .Button{
     cursor: pointer;
-    font: inherit;
     background-color: #D9853B;
     color:#ECECEA;
-  
+}
+
+.Button:hover{
+  background-color: #e4a975;
+}
+
+.Search {
+   border-top-right-radius: 20px;
+     border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+     border-bottom-left-radius: 20px;
 }
 
 /*
@@ -50,12 +58,15 @@ body{
   ========================================
 */
 .Post {
-    width: 150px;
-    padding: 16px;
-    text-align: center;
-    border: 1px solid #eee;
+    width: 100%;
+    text-align: left;
+    border: 2px solid #eee;
     box-shadow: 0 2px 3px #ccc;
+    max-width: 800px;
     margin: 10px;
+    background-color: white;
     box-sizing: border-box;
     cursor: pointer;
+    list-style-type: none;
+    transition: .2s ease-out all;
 }
