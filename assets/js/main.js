@@ -1,8 +1,16 @@
+/*
+App Component
+Main Component, contains the state, handlers, layout for the components to the page
+*/
 class App extends React.Component {
     state = {
         wiki: []
     }
 
+    /*
+    Function to call the Wiki API
+    Uses Axios to parse the JSON and set the State to the results
+    */
     searchWikiHandler = () => {
         let call = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=revisions&list=search&rvprop=content&srsearch="
             + document.getElementById("search").value + "&srlimit=15&srprop=snippet";
@@ -15,11 +23,17 @@ class App extends React.Component {
         });
     }
 
+    /*
+    Function to open a wiki entry in a new window depending on the ID of the page
+    */
     openWikiHandler = (id) => {
         window.open("https://en.wikipedia.org/?curid=" + id);
     }
 
     render() {
+        /*
+        Constant to hold the Results from the API call.
+        */
         const entries = this.state.wiki.map(entry => {
             return <Results
                 key={entry.pageid}
@@ -28,6 +42,9 @@ class App extends React.Component {
                 clicked={() => this.openWikiHandler(entry.pageid)} />
         });
 
+        /*
+        Search, Randomizer, Results
+        */
         return (
             <div>
                 <div className="InputGroup">
@@ -50,6 +67,10 @@ class App extends React.Component {
     }
 }
 
+/*
+Random Component
+Upon clicking opens a new tab with a random wiki article
+*/
 class Random extends React.Component {
     render() {
         return (
@@ -63,6 +84,10 @@ class Random extends React.Component {
     }
 }
 
+/*
+Component for a Result Entry
+Contains the title of the Article and a snippet of relevant information. Filtered to remove HTML tags.
+*/
 class Results extends React.Component {
     render() {
         return (
@@ -74,6 +99,10 @@ class Results extends React.Component {
     }
 }
 
+/*
+Search Component
+Validates if pressed to invoke search function in App component
+*/
 class Search extends React.Component {
 
     render() {
@@ -87,6 +116,13 @@ class Search extends React.Component {
     }
 }
 
+/*
+Aux component to wrap elements without divs
+*/
 const Aux = (props) => props.children;
 
+
+/*
+Render the REACT Code
+*/
 ReactDOM.render(<App />, document.getElementById('root'));
